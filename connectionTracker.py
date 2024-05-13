@@ -25,7 +25,6 @@ for row in iter(p.stdout.readline, b''):
         macAddr = re.findall(r'(?:\w+:)+\w+ ', row.strip().decode())
     if re.findall(r'\d+:\d+:\d+.\d+ ', row.strip().decode()):
         timestamp = re.findall(r'\d+:\d+:\d+.\d+ ', row.strip().decode())
-        # print(timestamp[0])
         loopCount += 1
     if re.findall(r'(?:[0-9]{1,3}\.){3}[0-9]{1,3}.(bgp)*(\d)*', row.strip().decode()):
         ipAddr = re.findall(r'((?:[0-9]{1,3}\.){3}[0-9]{1,3}.(bgp)*(\d)*)', row.strip().decode())
@@ -39,11 +38,10 @@ for row in iter(p.stdout.readline, b''):
         valueMatch = False
         if len(connections) > 0:
             for d in connections:
-                # print(d)
                 for key, value in d.items():
-                    if key == ipAddr[0][0]: # or key == ipAddr[1][0]:
+                    if key == ipAddr[0][0]: 
                         keyMatch = True
-                    if value == ipAddr[1][0]: # or value == ipAddr[0][0]:
+                    if value == ipAddr[1][0]: 
                         valueMatch = True
             if keyMatch == False and valueMatch == False:
                 connections.append(conn)
@@ -60,7 +58,6 @@ for row in iter(p.stdout.readline, b''):
     if loopCount == 3:
         twoHours = datetime.now()  - timedelta(hours = 2)
         for stamp in timestamps:
-            # print(stamp)
             sp = stamp.split('.')
             h,m,s = sp[0].split(':')
             dat = time(hour=int(h),minute=int(m),second=int(s),microsecond=int(sp[1]))
@@ -89,5 +86,4 @@ for row in iter(p.stdout.readline, b''):
             cmdList.append('traffic-policy input ISPA')
         print(cmdList)
         response = switch.runCmds( 1, cmdList )
-        # print("Hello, my name is: ", response[0])
         loopCount = 0
