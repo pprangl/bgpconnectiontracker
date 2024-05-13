@@ -7,3 +7,4 @@ We have created a script which runs locally on a switch to analyze BGP sessions 
 BGP traffic is allowed generally. 
 
 ** This script is a PoC and should be used with caution **
+** As a PoC this script has not been fully tested for production use **
